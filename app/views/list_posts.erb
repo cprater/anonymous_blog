@@ -10,14 +10,6 @@
 		<%end%>
 	<%end%>
 
-	<%if @invalid_post%>
-		<h3 class="error">Post must have a title and content</h3>
-	<%end%>
-
-	<%if @invalid_tag%>
-		<h3 class="error">That tag already exists!</h3>
-	<%end%>
-
 	<form action="/posts/new">
     <input type="submit" value="Create Post">
   </form>
@@ -37,7 +29,7 @@
     <input type="submit" value="Find Posts">
   </form>
 
-  <form action="/posts/edit" method="POST">
+  <form action="/posts/edit" method="GET">
   	<label for="edit_post">Enter a title to edit: </label>
   	<input type="text" id="edit_post" name="post_title">
   	<input type="submit" value="Edit Post">

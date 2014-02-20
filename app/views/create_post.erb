@@ -1,8 +1,8 @@
 <div class="container">
 	<h1>Create a new Post</h1>
 
-<%if @invalid%>
-	<h3 class="error">Post must have title and content</h3>
+<%if @invalid_post%>
+	<h3 class="error">Post must have unique title and content</h3>
 
 <%end%>	
 

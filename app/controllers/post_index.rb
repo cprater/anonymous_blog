@@ -28,6 +28,11 @@ get '/posts/by_tag' do
 	end
 end
 
+get '/posts/edit' do
+	@post = Post.find_by_title(params[:post_title])
+	erb :edit_post
+end
+
 
 #POST=====================================================
 		
@@ -35,15 +40,10 @@ post '/posts/new' do
 	post = Post.new(params[:post])
 	tag = Tag.where(title: params[:tag][:title]).first_or_initialize
 	if post.valid?
-		if tag.valid?
-			post.save
-			tag.save
-			post.tags << tag			
-			redirect '/posts'
-		else
-			@invalid_tag = true
-			erb :create_post
-		end
+		post.save
+		tag.save
+		post.tags << tag			
+		redirect '/posts'
 	else
 		@invalid_post = true
 		erb :create_post
@@ -51,8 +51,8 @@ post '/posts/new' do
 end
 
 post '/posts/edit' do
-	@post = Post.find_by_title(params[:post_title])
-	binding.pry
+	Post.find(params[:post][:id]).update_attributes(content: params[:post][:content])
+	redirect '/posts'
 end
 
 post '/posts/delete' do
