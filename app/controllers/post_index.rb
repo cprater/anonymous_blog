@@ -9,7 +9,19 @@ get '/posts/new' do
 	erb :create_post
 end
 
-
+get '/posts/by_tag' do
+	@posts = []
+	Post.all.each do |post|
+		# binding.pry
+		unless post.tags.empty?
+			post.tags do |tag|
+				
+				@posts << post if tag.title == params[:tag_title]	
+			end
+		end
+	end		
+	erb :list_by_tags
+end
 
 
 #POST=====================================================
@@ -19,8 +31,8 @@ post '/posts/new' do
 	tag = Tag.new(params[:tag])
 	if post.valid?
 		if tag.valid?
-			post.save
-			tag.save
+			# post.save
+			# tag.save
 			post.tags << tag			
 			redirect '/posts'
 		else
