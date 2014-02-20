@@ -1,0 +1,26 @@
+<div class="container">
+	<h1> All Posts</h1>
+
+	<%if @posts == nil%>
+		<h3>There are no posts yet.</h3>
+	<%else%>
+		<%@posts.each do |post|%>
+				<h3><%=post.title%></h3>
+				<h4><%=post.content%></h4>
+		<%end%>
+	<%end%>
+
+
+	<form action="/posts/new">
+    <input type="submit" value="Create">
+  </form>
+
+<br>
+<h3>Delete a post</h3>
+  <form action="/posts/delete" method="POST">
+  	<label for="delete_post">Enter a title to delete: </label>
+  	<input type="text" id="delete_post" name="post_title">
+    <input type="submit" value="Delete Post">
+  </form>
+
+</div>

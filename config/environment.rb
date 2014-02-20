@@ -11,6 +11,9 @@ require 'rubygems'
 require 'uri'
 require 'pathname'
 
+require 'pry'
+require 'pry-nav'
+
 require 'pg'
 require 'active_record'
 require 'logger'
