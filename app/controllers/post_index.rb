@@ -29,8 +29,15 @@ get '/posts/by_tag' do
 end
 
 get '/posts/edit' do
+	@posts = Post.all
 	@post = Post.find_by_title(params[:post_title])
-	erb :edit_post
+	# @post = Post.find(params[:post][:id])
+	if @post
+		erb :edit_post
+	else
+		@wrong_title = true
+		erb :list_posts
+	end
 end
 
 
@@ -52,7 +59,7 @@ end
 
 post '/posts/edit' do
 	Post.find(params[:post][:id]).update_attributes(content: params[:post][:content])
-	redirect '/posts'
+		redirect '/posts'
 end
 
 post '/posts/delete' do
