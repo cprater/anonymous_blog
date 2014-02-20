@@ -12,15 +12,20 @@ end
 get '/posts/by_tag' do
 	@posts = []
 	Post.all.each do |post|
-		# binding.pry
 		unless post.tags.empty?
-			post.tags do |tag|
-				
+			post.tags.each do |tag|				
 				@posts << post if tag.title == params[:tag_title]	
 			end
 		end
-	end		
-	erb :list_by_tags
+	end
+
+	if @posts.empty?	
+		@no_tag = true
+		@posts = Post.all
+		erb :list_posts
+	else 
+		erb :list_by_tags
+	end
 end
 
 
@@ -28,11 +33,11 @@ end
 		
 post '/posts/new' do 
 	post = Post.new(params[:post])
-	tag = Tag.new(params[:tag])
+	tag = Tag.where(title: params[:tag][:title]).first_or_initialize
 	if post.valid?
 		if tag.valid?
-			# post.save
-			# tag.save
+			post.save
+			tag.save
 			post.tags << tag			
 			redirect '/posts'
 		else
@@ -43,6 +48,11 @@ post '/posts/new' do
 		@invalid_post = true
 		erb :create_post
 	end
+end
+
+post '/posts/edit' do
+	@post = Post.find_by_title(params[:post_title])
+	binding.pry
 end
 
 post '/posts/delete' do

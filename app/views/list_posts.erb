@@ -27,16 +27,28 @@
 		<h3 class="error">No post existst with that title</h3>
 	<%end%>
 
+	<%if @no_tag ==true%>
+		<h3 class="error">No tag existst with that title</h3>
+	<%end%>
+
 	<form action="/posts/by_tag" method="GET">
   	<label for="find_post">Enter a tag to find associated posts: </label>
   	<input type="text" id="find_post" name="tag_title">
     <input type="submit" value="Find Posts">
   </form>
 
+  <form action="/posts/edit" method="POST">
+  	<label for="edit_post">Enter a title to edit: </label>
+  	<input type="text" id="edit_post" name="post_title">
+  	<input type="submit" value="Edit Post">
+  </form>
+
+
 
 <!-- DO NOT DELETE!!!=======HIDDEN FOR TESTING================ -->
 <!-- DO NOT DELETE!!!=======HIDDEN FOR TESTING================ -->
-  <!-- <form action="/posts/delete" method="POST">
+
+<!--   <form action="/posts/delete" method="POST">
   	<label for="delete_post">Enter a title to delete: </label>
   	<input type="text" id="delete_post" name="post_title">
     <input type="submit" value="Delete Post">
