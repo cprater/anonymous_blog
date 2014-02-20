@@ -9,29 +9,38 @@ get '/posts/new' do
 	erb :create_post
 end
 
-# get '/posts/delete' do
-
-# end
 
 
 
-
-
-
-
-
-
-
-#POST=========================
-
+#POST=====================================================
+		
 post '/posts/new' do 
-	Post.create(params[:post])
-	redirect '/posts'
+	post = Post.new(params[:post])
+	tag = Tag.new(params[:tag])
+	if post.valid?
+		if tag.valid?
+			post.save
+			tag.save
+			post.tags << tag			
+			redirect '/posts'
+		else
+			@invalid_tag = true
+			erb :create_post
+		end
+	else
+		@invalid_post = true
+		erb :create_post
+	end
 end
 
 post '/posts/delete' do
-	# post = Post.where(title: params[:post_title]).first  
-	Post.find_by_title(params[:post_title]).destroy  #not grabbing titles with trailing whitespace
-	erb :list_posts
-	# binding.pry
+	post = Post.find_by_title(params[:post_title])
+	if post 
+		post.delete
+		redirect '/posts'
+	else
+		@wrong_title = true
+		@posts = Post.all
+		erb :list_posts
+	end
 end

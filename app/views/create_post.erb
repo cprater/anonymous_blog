@@ -1,11 +1,18 @@
 <div class="container">
 	<h1>Create a new Post</h1>
 
+<%if @invalid%>
+	<h3 class="error">Post must have title and content</h3>
+
+<%end%>	
+
 	<form action="/posts/new" method="POST">
 		<label for="post_title">Title: </label>
 		<input type="text" id="post_title" name="post[title]"><br><br>
+		<label for="post_tag">Tags: </label>
+		<input type="text" id="post_tag" name="tag[title]"><br><br>
 		<label for="post_content">Content: </label>
-		<textarea id="post_content" name="post[content]"></textarea><br><br>
+		<textarea id="post_content" name="post[content]" rows="10" cols="23"></textarea><br><br>
 		<input type="submit" value="Create">
 	</form>
 </div>

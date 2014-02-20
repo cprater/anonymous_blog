@@ -2,7 +2,7 @@
 	<h1> All Posts</h1>
 
 	<%if @posts == nil%>
-		<h3>There are no posts yet.</h3>
+		<h3 class="error">There are no posts yet.</h3>
 	<%else%>
 		<%@posts.each do |post|%>
 				<h3><%=post.title%></h3>
@@ -10,13 +10,23 @@
 		<%end%>
 	<%end%>
 
+	<%if @invalid_post%>
+		<h3 class="error">Post must have a title and content</h3>
+	<%end%>
+
+	<%if @invalid_tag%>
+		<h3 class="error">That tag already exists!</h3>
+	<%end%>
 
 	<form action="/posts/new">
-    <input type="submit" value="Create">
+    <input type="submit" value="Create Post">
   </form>
 
-<br>
-<h3>Delete a post</h3>
+	<br>
+	<%if @wrong_title ==true%>
+		<h3 class="error">No post existst with that title</h3>
+	<%end%>
+
   <form action="/posts/delete" method="POST">
   	<label for="delete_post">Enter a title to delete: </label>
   	<input type="text" id="delete_post" name="post_title">
