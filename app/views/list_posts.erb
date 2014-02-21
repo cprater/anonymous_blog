@@ -1,49 +1,62 @@
-<div class="container">
-	<h1> All Posts</h1>
+<div class="options">
+
+	<h1>Bob Loblaw's Law Blog</h1>
+
+		<form action="/posts/new">
+	    <input class="create"type="submit" value="Create Post">
+	  </form>	
+
+
+		
+
+	<div class="input">
+
+		<%if @wrong_title ==true%>
+			<h3 class="error">No post existst with that title</h3>
+		<%end%>
+
+		<%if @no_tag ==true%>
+			<h3 class="error">No tag existst with that title</h3>
+		<%end%>
+
+		<form action="/posts/by_tag" method="GET">	  	
+				<input type="submit" value="Find Posts">	    
+	  		<input type="text" id="find_post" name="tag_title" value="<Enter a tag>">
+	    	
+	  </form>
+	</div>
+
+	
+
+	<div class="input">		
+	  <form action="/posts/edit" method="GET">	  		
+	  	<input type="submit" value="Edit Post">	 	
+	  	<input type="text" id="edit_post" name="post_title" value="<Enter a title>">	  		
+	  </form>
+	</div>
+
+  <div class="input last">
+		<form action="/posts/delete" method="POST">	  		
+	  		<input type="submit" value="Delete Post">	    
+	  		<input type="text" id="delete_post" name="post_title" value="<Enter a title>">	    	
+	  </form>
+	 </div>
+</div>
+<div class="container">	
+	
+<!-- DO NOT DELETE!!!=======HIDDEN FOR TESTING================ -->
+<!-- DO NOT DELETE!!!=======HIDDEN FOR TESTING================ -->
+<!-- <h1> All Posts</h1> -->
 
 	<%if @posts == nil%>
 		<h3 class="error">There are no posts yet.</h3>
 	<%else%>
 		<%@posts.each do |post|%>
-				<h3><%=post.title%></h3>
-				<h4><%=post.content%></h4>
+				<h3 class="title"><%=post.title%></h3>
+				<!-- <h5 class="tags"><%=post.tags.all.each{|tag| tag.title.inspect}%></h5> -->
+				<h4 class="content"><%=post.content%></h4>
 		<%end%>
 	<%end%>
-
-	<form action="/posts/new">
-    <input type="submit" value="Create Post">
-  </form>
-
-	<br>
-	<%if @wrong_title ==true%>
-		<h3 class="error">No post existst with that title</h3>
-	<%end%>
-
-	<%if @no_tag ==true%>
-		<h3 class="error">No tag existst with that title</h3>
-	<%end%>
-
-	<form action="/posts/by_tag" method="GET">
-  	<label for="find_post">Enter a tag to find associated posts: </label>
-  	<input type="text" id="find_post" name="tag_title">
-    <input type="submit" value="Find Posts">
-  </form>
-
-  <form action="/posts/edit" method="GET">
-  	<label for="edit_post">Enter a title to edit: </label>
-  	<input type="text" id="edit_post" name="post_title">
-  	<input type="submit" value="Edit Post">
-  </form>
-
-
-
-<!-- DO NOT DELETE!!!=======HIDDEN FOR TESTING================ -->
-<!-- DO NOT DELETE!!!=======HIDDEN FOR TESTING================ -->
-
-  <form action="/posts/delete" method="POST">
-  	<label for="delete_post">Enter a title to delete: </label>
-  	<input type="text" id="delete_post" name="post_title">
-    <input type="submit" value="Delete Post">
-  </form>
+  
 
 </div>

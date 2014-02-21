@@ -24,6 +24,7 @@ get '/posts/by_tag' do
 		@posts = Post.all
 		erb :list_posts
 	else 
+		@tag_name = params[:tag_title]
 		erb :list_by_tags
 	end
 end
